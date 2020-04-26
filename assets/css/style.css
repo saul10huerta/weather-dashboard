@@ -1,0 +1,19 @@
+
+.navbar-brand {
+    font-size: 40px;
+    color: white;
+}
+
+.container {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.col-4 h2 {
+    font-size: 30px;
+}
+
+.nav-item .btn {
+    margin: 5px 0px;
+}
+
