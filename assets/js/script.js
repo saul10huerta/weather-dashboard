@@ -3,7 +3,7 @@ var cityInputEl = document.querySelector("#cityname");
 
 var todaysCardEl = document.querySelector("#todays-card");
 
-var liEl = document.querySelector("#addbutton");
+var divEl = document.querySelector("#addbutton");
 
 
 
@@ -21,7 +21,7 @@ var formSubmitHandler = function(event) {
     buttonEl.className = "btn border bg-light w-100 p-2";
     buttonEl.id = "buttonnumber";
     buttonEl.textContent = cityname;
-    cityFormEl.appendChild(buttonEl);
+    divEl.appendChild(buttonEl);
 
 
     console.log(cityname);
