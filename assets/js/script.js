@@ -3,6 +3,8 @@ var cityInputEl = document.querySelector("#cityname");
 
 var todaysCardEl = document.querySelector("#todays-card");
 
+var liEl = document.querySelector("#addbutton");
+
 
 
 
@@ -12,6 +14,15 @@ var formSubmitHandler = function(event) {
     event.preventDefault();
     // get value from input element
     var cityname = cityInputEl.value.trim();
+
+
+    var buttonEl = document.createElement("button");
+    buttonEl.type = "button";
+    buttonEl.className = "btn border bg-light w-100 p-2";
+    buttonEl.id = "buttonnumber";
+    buttonEl.textContent = cityname;
+    cityFormEl.appendChild(buttonEl);
+
 
     console.log(cityname);
 
@@ -39,8 +50,9 @@ var formSubmitHandler = function(event) {
             alert("Unable to connect to Open Weather");
         });
     }
-};
 
+    
+};
 
 //funtion to display weather for that city
 var displayWeather = function(data) {
@@ -70,26 +82,82 @@ var displayWeather = function(data) {
     var windSpeed = JSON.stringify(data.wind.speed);
     console.log(windSpeed);
 
-    //uv index
-    // var uvIndex = 
+
 
 
     //create a card to hold today's weather info
     var infoEl = document.createElement("div");
-    infoEl.className = "card-body";
-    infoEl.id = "current"
-    infoEl.textContent = date
+    infoEl.className = "card-header border border-secondary bg-light mb-3";
+    infoEl.id = "current-date";
+    infoEl.textContent = date;
     todaysCardEl.appendChild(infoEl);
 
+    var CardEl = document.querySelector("#current-date");
+
+    var nameEl = document.createElement("p");
+    nameEl.id = "citys-name";
+    nameEl.textContent = dataCityName;
+    CardEl.appendChild(nameEl);
+
+    var iconEl = document.createElement("img");
+    iconEl.id = "citys-name";
+    iconEl.src = iconurl;
+    CardEl.appendChild(iconEl);
+
+    var tempEl = document.createElement("p");
+    tempEl.id = "citys-temp";
+    tempEl.textContent = "Temperature: " + temperature + " °F";
+    CardEl.appendChild(tempEl);
+
+    var humiEl = document.createElement("p");
+    humiEl.id = "citys-humidity";
+    humiEl.textContent = "Humidity: " + humidity + "%";
+    CardEl.appendChild(humiEl);
+
+    var windEl = document.createElement("p");
+    windEl.id = "citys-windspeed";
+    windEl.textContent = "Wind Speed: " + windSpeed + " MPH";
+    CardEl.appendChild(windEl);
 
 
 
+    //uv index
+    var lat = JSON.stringify(data.coord.lat);
+    var lon = JSON.stringify(data.coord.lon);
 
+    var uvIndexURL = "https://api.openweathermap.org/data/2.5/uvi?appid=8848a37b64a7036def651b38b8efaf49&lat=" + lat + "&lon=" + lon
+    fetch(uvIndexURL)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            UVData(data);
+            console.log(data);
+    });
+
+    var UVData = function(data) {
+        var finalIndex = JSON.stringify(data.value);
+        console.log(finalIndex);
+
+        var indexEL = document.createElement("div");
+        indexEL.id = "citys-uvindex";
+        indexEL.textContent = "UV Index: " + finalIndex;
+
+        if(finalIndex >= 6) {
+            indexEL.className = "bg-danger text-white";
+        } else if (finalIndex > 2 & finalIndex < 6) {
+            indexEL.className = "bg-warning text-dark";
+        } else {
+            indexEL.className = "bg-success text-white";
+        }
+
+        CardEl.appendChild(indexEL);
+    }    
+
+    
     
 
 }
-
-
 
 
 

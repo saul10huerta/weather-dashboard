@@ -14,7 +14,7 @@ so that the user can plan a trip accordingly to the user's city of interest base
 ## Link to webpage
 https://saul10huerta.github.io/weather-dashboard/
 
-![](.png)
+![](weatherdashboard.png)
 
 ### Contribution
 Made by Saul Huerta
